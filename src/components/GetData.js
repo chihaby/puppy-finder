@@ -11,11 +11,16 @@ const Button = styled.button`
   margin: 0px 5px 20px 5px;
 `
 
+const ImageBox = styled.image`
+  height: 20px;
+  width: 20px;
+`
+
 class GetData extends Component {
   state = {
     list: [],
     randomImg: '',
-    listImg: []
+    listImg: [],
   }
 
   componentDidMount = () => {
@@ -42,7 +47,7 @@ class GetData extends Component {
     axios.get(`https://dog.ceo/api/breed/${buttonValue}/images`)
     .then(res => {
       const listImg = res.data.message;
-      this.setState([listImg]);
+      this.setState({listImg});
       console.log(listImg);
       console.log(typeof(listImg));
     })
@@ -57,22 +62,26 @@ class GetData extends Component {
     
     return (
       <div>
-        <div>
-          <ul>
-            {Object.keys(list).map(breed => 
-              <Button onClick={this.handleClick}>
-                  {breed}
-              </Button>
-            )}
-          </ul>
+
+        <div>        
+          {Object.keys(list).map(breed => 
+            <Button onClick={this.handleClick}>
+                {breed}
+            </Button>
+          )}       
         </div>
+
         <div>
           <img src={randomImg} alt={"img"}/>
         </div>
+
         <div>
-          {listImg.map(image => {          
-           
-    
+          {<h5>list-------------------------------------list</h5>}
+        </div>
+
+        <div>
+          {listImg.map(image => {
+            return <img src={image} alt='image list'/>
           })}
         </div>
       </div>
