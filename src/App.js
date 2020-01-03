@@ -2,13 +2,21 @@ import React from 'react';
 import './App.css';
 import GetData from "./components/GetData";
 import Search from './components/Search';
+import NoMatch from './components/NoMatch';
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
-      <Search />
-      <GetData />
-    </div>
+    <BrowserRouter >
+      <div className="App">
+        <Switch>
+          <Route exact path="/" component={GetData} />
+          <Route exact path="/search" component={Search} />
+          <Route exact path="/map" component={Map} />
+          <Route component={NoMatch} />
+        </Switch>
+      </div>
+    </BrowserRouter>
   );
 }
 

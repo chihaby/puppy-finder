@@ -1,2 +1,7 @@
 locally calles my appp in api folder
 in github it is api-dog-2
+
+STYLED COMPONENTS INSTEAD OF INLINE STYLING
+.search bar
+.list of images rendered
+
