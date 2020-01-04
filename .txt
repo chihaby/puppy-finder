@@ -5,3 +5,6 @@ STYLED COMPONENTS INSTEAD OF INLINE STYLING
 .search bar
 .list of images rendered
 
+MQ 
+custumor key:  	NZ0x7JGlyUhl10wR3RCGLcAVpAxVbtGc
+custumor secret:  	yDKw5xuYKwyJKNx8

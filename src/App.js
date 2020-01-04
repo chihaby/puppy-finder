@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import GetData from "./components/GetData";
 import Search from './components/Search';
+import Map from './components/Map';
 import NoMatch from './components/NoMatch';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
