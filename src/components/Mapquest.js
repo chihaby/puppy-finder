@@ -1,29 +1,28 @@
-import React, { useEffect } from 'react';
-// import { L } from 'leaflet';
+import React, { useEffect } from "react";
+import L from "leaflet";
 
-const Mapquest = ({ height, width, center, tileLayer, zoom, apiKey}) => {
+//   "HrY9E2m6hAltF5LAZeTDknOZVXcolKWC"
 
-  useEffect(() => {
+const Mapquest = ({ height, width, center, tileLayer, zoom, apiKey }) => {
+    useEffect(() => {
+        // api key
+        L.mapquest.key = apiKey;
 
-    // api key
-    window.L.mapquest= apiKey;
+        // Initializing map
+        const map = L.mapquest.map("map", {
+            center,
+            layers: L.mapquest.tileLayer(tileLayer),
+            zoom
+        });
 
-    // Initializing map
-    const map = window.L.mapquest.map('map', {
-      center,
-      layers: window.L.mapquest.tileLayer(tileLayer),
-      zoom  
+        map.addControl(L.mapquest.control());
     });
-    
-    map.addControl(window.L.mapquest.control());
 
-  }, []);
-
-  return (
-    <div id='map' style={{width, height }}>
-      <p>Loading map...</p>
-    </div>
-  )
-}
+    return (
+        <div id="map" style={{ width, height }}>
+            <p>Loading map...</p>
+        </div>
+    );
+};
 
 export default Mapquest;
