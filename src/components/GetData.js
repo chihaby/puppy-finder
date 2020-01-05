@@ -1,17 +1,18 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import styled from 'styled-components';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import styled from "styled-components";
 
 const Button = styled.button`
-  height: 30px;
-  width: 100px;
-  background: palevioletred;
-  border-radius: 3px;
-  border: none;
-  color: white;
-  background: tomato;
-  margin: 10px 10px 20px 10px;
-`
+    height: 30px;
+    width: 100px;
+    background: palevioletred;
+    border-radius: 3px;
+    border: none;
+    color: white;
+    background: tomato;
+    margin: 10px 10px 20px 10px;
+`;
 
 // const ImageBox = styled.image`
 //   display: flex;
@@ -28,93 +29,115 @@ const Button = styled.button`
 // `
 
 class GetData extends Component {
-  state = {
-    list: [],
-    randomImg: '',
-    listImg: [],
-    subBreed: []
-  }
+    state = {
+        list: [],
+        randomImg: "",
+        listImg: [],
+        subBreed: []
+    };
 
-  componentDidMount = () => {
-    axios.get(`https://dog.ceo/api/breeds/list/all`)
-    .then(res => {
-      const list = res.data.message;
-      this.setState({ list });
-    })
-  }
+    componentDidMount = () => {
+        axios.get(`https://dog.ceo/api/breeds/list/all`).then(res => {
+            const list = res.data.message;
+            this.setState({ list });
+        });
+    };
 
-  handleClick = event => {
+    handleClick = event => {
+        event.preventDefault();
+        const buttonValue = event.target.innerHTML;
 
-    event.preventDefault();
-    const buttonValue = event.target.innerHTML;
+        axios
+            .get(`https://dog.ceo/api/breed/${buttonValue}/images/random`)
+            .then(res => {
+                const randomImg = res.data.message;
+                this.setState({ randomImg });
+            });
 
-    axios.get(`https://dog.ceo/api/breed/${buttonValue}/images/random`)
-    .then(res => {
-      const randomImg = res.data.message;
-      this.setState({randomImg});
-    })
+        axios
+            .get(`https://dog.ceo/api/breed/${buttonValue}/images`)
+            .then(res => {
+                const listImg = res.data.message.slice(0, 22);
+                this.setState({ listImg });
+            });
 
-    axios.get(`https://dog.ceo/api/breed/${buttonValue}/images`)
-    .then(res => {
-      const listImg = res.data.message.slice(0,22);
-      this.setState({listImg});
-    }) 
-    
-    axios.get(`https://dog.ceo/api/breed/${buttonValue}/list`)
-    .then(res => {
-      const subBreed = res.data.message;
-      this.setState({subBreed});
-    }) 
-  }
+        axios.get(`https://dog.ceo/api/breed/${buttonValue}/list`).then(res => {
+            const subBreed = res.data.message;
+            this.setState({ subBreed });
+        });
+    };
 
+    render() {
+        const { list, randomImg, listImg, subBreed } = this.state;
 
+        return (
+            <div>
+                <div>
+                    <nav>
+                        <ul>
+                            <li>
+                                <Link to="/search">Search</Link>
+                            </li>
+                            <li>
+                                <Link to="/map">Map</Link>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
 
-  render () {
+                <div>
+                    {Object.keys(list)
+                        .map(breed => (
+                            <Button onClick={this.handleClick}>{breed}</Button>
+                        ))
+                        .slice(0, 24)}
+                </div>
 
-    const { list, randomImg, listImg, subBreed } = this.state; 
-    
-    return (
-      <div>
+                <div>
+                    {<h1>Random image of the breed</h1>}
+                    <img
+                        src={randomImg}
+                        alt={""}
+                        style={{
+                            height: "200px",
+                            width: "200px",
+                            borderRadius: "10%"
+                        }}
+                    />
+                </div>
 
-        <div>        
-          {Object.keys(list).map(breed => 
-            <Button onClick={this.handleClick}>
-                {breed}
-            </Button>
-          ).slice(0,24)}       
-        </div>
+                <div>{<h1>List of the breed images</h1>}</div>
 
-        <div>
-          {<h1>Random image of the breed</h1>}
-          <img src={randomImg} alt={""} style={{ height: "200px", width: "200px", borderRadius: "10%"}}/>
-        </div>
+                <div>
+                    {listImg.map(image => {
+                        return (
+                            <img
+                                src={image}
+                                alt={""}
+                                style={{
+                                    height: "100px",
+                                    width: "100px",
+                                    borderRadius: "20%"
+                                }}
+                            />
+                        );
+                        // Insert styled component instead
+                        // return <ImageBox src={image}/>
+                    })}
+                </div>
 
-        <div>
-          {<h1>List of the breed images</h1>}
-        </div>
-
-        <div>
-          {listImg.map(image => {
-            return <img src={image} alt={""} style={{ height: "100px", width: "100px", borderRadius: "20%"}}/>
-            // Insert styled component instead
-            // return <ImageBox src={image}/> 
-          })}
-        </div>
-
-        <div>
-          <h1>List of sub breeds</h1>
-          {this.props.searchInput}
-          <ul>
-            {subBreed.map(oneSubBreed => {
-              return <li>{oneSubBreed}</li>
-            })}
-          </ul>
-        </div>
-      </div>
-    )
-  }
+                <div>
+                    <h1>List of sub breeds</h1>
+                    {this.props.searchInput}
+                    <ul>
+                        {subBreed.map(oneSubBreed => {
+                            return <li>{oneSubBreed}</li>;
+                        })}
+                    </ul>
+                </div>
+            </div>
+        );
+    }
 }
 
 export default GetData;
-
-
