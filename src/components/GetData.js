@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 
@@ -72,69 +71,56 @@ class GetData extends Component {
 
         return (
             <div>
-                <div>
-                    <nav>
-                        <ul>
-                            <li>
-                                <Link to="/search">Search</Link>
-                            </li>
-                            <li>
-                                <Link to="/map">Map</Link>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
+              <div>
+                  {Object.keys(list)
+                      .map(breed => (
+                          <Button onClick={this.handleClick}>{breed}</Button>
+                      ))
+                      .slice(0, 24)}
+              </div>
 
-                <div>
-                    {Object.keys(list)
-                        .map(breed => (
-                            <Button onClick={this.handleClick}>{breed}</Button>
-                        ))
-                        .slice(0, 24)}
-                </div>
+              <div>
+                  {<h1>Random image of the breed</h1>}
+                  <img
+                      src={randomImg}
+                      alt={""}
+                      style={{
+                          height: "200px",
+                          width: "200px",
+                          borderRadius: "10%"
+                      }}
+                  />
+              </div>
 
-                <div>
-                    {<h1>Random image of the breed</h1>}
-                    <img
-                        src={randomImg}
-                        alt={""}
-                        style={{
-                            height: "200px",
-                            width: "200px",
-                            borderRadius: "10%"
-                        }}
-                    />
-                </div>
+              <div>{<h1>List of the breed images</h1>}</div>
 
-                <div>{<h1>List of the breed images</h1>}</div>
+              <div>
+                  {listImg.map(image => {
+                      return (
+                          <img
+                              src={image}
+                              alt={""}
+                              style={{
+                                  height: "100px",
+                                  width: "100px",
+                                  borderRadius: "20%"
+                              }}
+                          />
+                      );
+                      // Insert styled component instead
+                      // return <ImageBox src={image}/>
+                  })}
+              </div>
 
-                <div>
-                    {listImg.map(image => {
-                        return (
-                            <img
-                                src={image}
-                                alt={""}
-                                style={{
-                                    height: "100px",
-                                    width: "100px",
-                                    borderRadius: "20%"
-                                }}
-                            />
-                        );
-                        // Insert styled component instead
-                        // return <ImageBox src={image}/>
-                    })}
-                </div>
-
-                <div>
-                    <h1>List of sub breeds</h1>
-                    {this.props.searchInput}
-                    <ul>
-                        {subBreed.map(oneSubBreed => {
-                            return <li>{oneSubBreed}</li>;
-                        })}
-                    </ul>
-                </div>
+              <div>
+                  <h1>List of sub breeds</h1>
+                  {this.props.searchInput}
+                  <ul>
+                      {subBreed.map(oneSubBreed => {
+                          return <li>{oneSubBreed}</li>;
+                      })}
+                  </ul>
+              </div>
             </div>
         );
     }
