@@ -11,3 +11,6 @@ custumor secret:  	yDKw5xuYKwyJKNx8
 
 Tom
 viqmo0KJLTdXPV07rTvdjCvR5bTJJWo8
+
+Mapbox
+access token: pk.eyJ1IjoicmFkODAiLCJhIjoiY2s1MmxxYWJoMTFodTNscXN5Z3BzajE1NSJ9.t50hhde4qlzVJadFNDowJQ
