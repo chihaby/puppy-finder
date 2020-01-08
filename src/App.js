@@ -1,7 +1,6 @@
 import React from "react";
 import "./App.css";
 import GetData from "./components/GetData";
-import Search from "./components/Search";
 // import Maps from "./components/Maps";
 import NavBar from './components/NavBar';
 import NoMatch from "./components/NoMatch";
@@ -18,7 +17,6 @@ function App() {
                 <div className="App">
                     <Switch>
                         <Route exact path="/" component={GetData} />
-                        <Route exact path="/search" component={Search} />
                         {/* <Route exact path="/map" component={Maps} /> */}
                         <Route component={NoMatch} />
                     </Switch>
