@@ -22,16 +22,20 @@ const NavBar = props => {
   return (
     <div>
       <Navbar color="light" light expand="md">
-        <NavbarBrand href="/">Apis</NavbarBrand>
+        <NavbarBrand href="/">Home</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
+            <NavItem>
+              <NavLink href="/login">Login</NavLink>
+            </NavItem>
             <NavItem>
               <NavLink href="/search/">Search</NavLink>
             </NavItem>
             <NavItem>
               <NavLink href="/map">Map</NavLink>
             </NavItem>
+
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
                 Options

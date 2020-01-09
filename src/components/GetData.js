@@ -57,6 +57,7 @@ class GetData extends Component {
                 .then(res => {
                     const searchResult = res.data.message.slice(0, 9);
                     this.setState({ searchResult });
+                    console.log(searchResult);
             })
         }
     }
@@ -94,7 +95,7 @@ class GetData extends Component {
                         .map(breed => (
                             <Button onClick={this.handleSubmit}>{breed}</Button>
                         ))
-                        .slice(0, 22)}
+                        .slice(1, 9)}
                 </div>
 
                 {/* Image div */}
