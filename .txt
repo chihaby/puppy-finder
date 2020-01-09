@@ -2,7 +2,11 @@ locally calles my appp in api folder
 in github it is api-dog-2
 
 Features:
-chat
+chat: https://www.youtube.com/watch?v=jFNHerJqvFw&t=1941s
+login: https://www.youtube.com/watch?v=QoLUB0QkUaE
+appontments
+reservation
+wainting list restaurant 
 
 STYLED COMPONENTS INSTEAD OF INLINE STYLING
 .search bar

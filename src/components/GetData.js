@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import styled from "styled-components";
 
-const Button = styled.button`
+export const Button = styled.button`
     height: 30px;
     width: 100px;
     background: palevioletred;
@@ -16,16 +16,15 @@ const Button = styled.button`
 class GetData extends Component {
     state = {
         searchInput: '',
-        searchInputArray: [],
-        list: [],
-        listImg: []
+        buttonValue: '',
+        searchResult: [],
+        list: []
     };
 
     componentDidMount = () => {
         axios.get(`https://dog.ceo/api/breeds/list/all`).then(res => {
             const list = res.data.message;
             this.setState({ list });
-            console.log(list);
         });
     };
 
@@ -36,37 +35,39 @@ class GetData extends Component {
         });
     };
 
-    handleSearchSubmit = event => {
+    handleSubmit = event => {
+
         event.preventDefault();
+
+        const buttonValue = event.target.innerHTML;
         const { searchInput } = this.state;
-        this.setState({ searchInput });
-        axios
-            .get(`https://dog.ceo/api/breed/${searchInput}/images`)
-            .then(res => {
-                const searchInputArray = res.data.message.slice(0, 9);
-                this.setState({ searchInputArray });
-                console.log(searchInputArray);
-        })
+
+        if (searchInput) {
+            axios
+                .get(`https://dog.ceo/api/breed/${ searchInput }/images`)
+                .then(res => {
+                    const searchResult = res.data.message.slice(0, 9);
+                    this.setState({ searchResult });
+            })
+        } 
+
+        if (buttonValue) {
+            axios
+                .get(`https://dog.ceo/api/breed/${ buttonValue }/images`)
+                .then(res => {
+                    const searchResult = res.data.message.slice(0, 9);
+                    this.setState({ searchResult });
+            })
+        }
     }
 
-    handleButtonClick = event => {
-        event.preventDefault();
-        const buttonValue = event.target.innerHTML;
-        axios
-            .get(`https://dog.ceo/api/breed/${buttonValue}/images`)
-            .then(res => {
-                const listImg = res.data.message.slice(0, 9);
-                this.setState({ listImg });
-            });
-    };
-
     render() {
-        const { searchInputArray ,list, listImg } = this.state;
+        const { searchResult ,list } = this.state;
 
         return (
-            <div>
 
-                {/* Search Input field */}
+            <div>
+                {/* Input form */}
                 <div>
                     <form
                             style={{
@@ -74,7 +75,7 @@ class GetData extends Component {
                                 marginTop: "20px",
                                 marginBottom: "20px"
                             }}
-                            onSubmit={this.handleSearchSubmit}
+                            onSubmit={this.handleSubmit}
                         >
                             <input
                                 type="text"
@@ -87,18 +88,19 @@ class GetData extends Component {
                         </form>
                 </div>
 
-                {/* 24 Buttons */}
+                {/* 9 Buttons from list object */}
                 <div>
                     {Object.keys(list)
                         .map(breed => (
-                            <Button onClick={this.handleButtonClick}>{breed}</Button>
+                            <Button onClick={this.handleSubmit}>{breed}</Button>
                         ))
-                        .slice(0, 24)}
+                        .slice(0, 22)}
                 </div>
 
+                {/* Image div */}
                 <div>
-                    <h1>List of the breed images by search</h1>
-                    {searchInputArray.map(oneSearch => {
+                    <h1>List of images</h1>
+                    {searchResult.map(oneSearch => {
                         return (
                             <img
                                 src={oneSearch}
@@ -112,25 +114,6 @@ class GetData extends Component {
                         );
                     })}
                 </div>
-
-                {/* List of images */}
-                <div>
-                    <h1>List of the breed images</h1>
-                    {listImg.map(image => {
-                        return (
-                            <img
-                                src={image}
-                                alt={""}
-                                style={{
-                                    height: "100px",
-                                    width: "100px",
-                                    borderRadius: "20%"
-                                    }}
-                            />
-                        );
-                    })}
-                </div>
-
             </div>
         );
     }
@@ -138,20 +121,3 @@ class GetData extends Component {
 
 
 export default GetData;
-
-
-
-
-// const ImageBox = styled.image`
-//   display: flex;
-//   justify-content: center; /* align horizontal */
-//   align-items: center;
-//   display: -webkit-box;
-//   display: -webkit-flex;
-//   display: -moz-box;
-//   display: -ms-flexbox;
-//   -webkit-flex-align: center;
-//   -ms-flex-align: center;
-//   -webkit-align-items: center;
-//   border-radius: 50%;
-// `
