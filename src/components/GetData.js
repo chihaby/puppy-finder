@@ -13,19 +13,32 @@ export const Button = styled.button`
     margin: 10px 10px 20px 10px;
 `;
 
+export const RdmButton = styled.button`
+height: 30px;
+width: 100px;
+background: palevioletred;
+border-radius: 3px;
+border: none;
+color: white;
+background: -o-repeating-linear-gradient();
+margin: 10px 10px 20px 10px;
+`;
+
 class GetData extends Component {
     state = {
         searchInput: '',
         buttonValue: '',
+        rdmButtonvalues: [],
         searchResult: [],
         list: []
     };
 
-    componentDidMount = () => {
-        axios.get(`https://dog.ceo/api/breeds/list/all`).then(res => {
+    componentDidMount = async () => {
+        await axios.get(`https://dog.ceo/api/breeds/list/all`).then(res => {
             const list = res.data.message;
             this.setState({ list });
-        });
+            this.randomizeButtonValues();
+        });  
     };
 
     handleChange = event => {
@@ -36,9 +49,7 @@ class GetData extends Component {
     };
 
     handleSubmit = event => {
-
         event.preventDefault();
-
         const buttonValue = event.target.innerHTML;
         const { searchInput } = this.state;
 
@@ -57,18 +68,25 @@ class GetData extends Component {
                 .then(res => {
                     const searchResult = res.data.message.slice(0, 9);
                     this.setState({ searchResult });
-                    console.log(searchResult);
             })
         }
+
+        this.randomizeButtonValues();
+    }
+
+    randomizeButtonValues = () => {
+            let rdmButtonvalues = []
+            for (var i=0; i < 9; i++) {
+                var rdmNumber = Object.keys(this.state.list)[Math.floor(Math.random()*Object.keys(this.state.list).length)];
+                rdmButtonvalues.push(rdmNumber);
+            }
+            this.setState({ rdmButtonvalues });
     }
 
     render() {
-        const { searchResult ,list } = this.state;
-
+        const { searchResult ,list, rdmButtonvalues } = this.state;
         return (
-
             <div>
-                {/* Input form */}
                 <div>
                     <form
                             style={{
@@ -89,8 +107,8 @@ class GetData extends Component {
                         </form>
                 </div>
 
-                {/* 9 Buttons from list object */}
-                <div>
+                <div>     
+                    <h1>Constant list</h1>
                     {Object.keys(list)
                         .map(breed => (
                             <Button onClick={this.handleSubmit}>{breed}</Button>
@@ -98,7 +116,15 @@ class GetData extends Component {
                         .slice(1, 9)}
                 </div>
 
-                {/* Image div */}
+                <div>     
+                    <h1>Random list</h1>
+                    {rdmButtonvalues
+                        .map(breed => (
+                            <RdmButton onClick={this.handleSubmit}>{breed}</RdmButton>
+                        ))
+                        .slice(1, 9)}
+                </div>
+
                 <div>
                     <h1>List of images</h1>
                     {searchResult.map(oneSearch => {
