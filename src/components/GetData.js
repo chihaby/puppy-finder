@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Form } from "./Form";
+import { ButtonList } from "./ButtonList";
 import { ImageDiv } from "./ImageDiv";
 import axios from "axios";
 import styled from "styled-components";
@@ -94,14 +95,10 @@ class GetData extends Component {
                     handleSubmit={this.handleSubmit}
                 />
 
-                <div>
-                    <h1>Constant list</h1>
-                    {Object.keys(list)
-                        .map(breed => (
-                            <Button onClick={this.handleSubmit}>{breed}</Button>
-                        ))
-                        .slice(1, 9)}
-                </div>
+                <ButtonList
+                    list={this.state.list}
+                    handleSubmit={this.handleSubmit}
+                />
 
                 <div>
                     <button onClick={this.randomizeButtonValues}>
