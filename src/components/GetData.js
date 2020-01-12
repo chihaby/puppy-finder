@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Form } from "./Form";
 import { ButtonList } from "./ButtonList";
+import { RandomButtons } from "./RandomButtons";
 import { ImageDiv } from "./ImageDiv";
 import axios from "axios";
 import styled from "styled-components";
@@ -87,35 +88,21 @@ class GetData extends Component {
     };
 
     render() {
-        const { list, rdmButtonvalues } = this.state;
         return (
             <div>
                 <Form
                     handleChange={this.handleChange}
                     handleSubmit={this.handleSubmit}
                 />
-
                 <ButtonList
                     list={this.state.list}
                     handleSubmit={this.handleSubmit}
                 />
-
-                <div>
-                    <button onClick={this.randomizeButtonValues}>
-                        Click for random list
-                    </button>
-                </div>
-
-                <div>
-                    {rdmButtonvalues
-                        .map(breed => (
-                            <RdmButton onClick={this.handleSubmit}>
-                                {breed}
-                            </RdmButton>
-                        ))
-                        .slice(1, 9)}
-                </div>
-
+                <RandomButtons
+                    handleSubmit={this.handleSubmit}
+                    rdmButtonvalues={this.state.rdmButtonvalues}
+                    randomizeButtonValues={this.randomizeButtonValues}
+                />
                 <ImageDiv searchResult={this.state.searchResult} />
             </div>
         );
