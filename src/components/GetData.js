@@ -70,8 +70,6 @@ class GetData extends Component {
                     this.setState({ searchResult });
             })
         }
-
-        this.randomizeButtonValues();
     }
 
     randomizeButtonValues = () => {
@@ -116,8 +114,11 @@ class GetData extends Component {
                         .slice(1, 9)}
                 </div>
 
+                <div>
+                    <button onClick={this.randomizeButtonValues}>Click for random list</button>
+                </div>
+
                 <div>     
-                    <h1>Random list</h1>
                     {rdmButtonvalues
                         .map(breed => (
                             <RdmButton onClick={this.handleSubmit}>{breed}</RdmButton>

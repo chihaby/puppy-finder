@@ -31,4 +31,4 @@ if wrong value entered output wrong value
 auto suggest
 
 bugs:
-enter key submits random buttons to rerender
+enter key and constant button cause buttons to render
