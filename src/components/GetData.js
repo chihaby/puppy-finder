@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Form } from "./Form";
 import { ImageDiv } from "./ImageDiv";
 import axios from "axios";
 import styled from "styled-components";
@@ -85,28 +86,13 @@ class GetData extends Component {
     };
 
     render() {
-        const { searchResult, list, rdmButtonvalues } = this.state;
+        const { list, rdmButtonvalues } = this.state;
         return (
             <div>
-                <div>
-                    <form
-                        style={{
-                            textAlign: "center",
-                            marginTop: "20px",
-                            marginBottom: "20px"
-                        }}
-                        onSubmit={this.handleSubmit}
-                    >
-                        <input
-                            type="text"
-                            name="name"
-                            onChange={this.handleChange}
-                        />
-                        <button className="search-button" type="submit">
-                            Submit
-                        </button>
-                    </form>
-                </div>
+                <Form
+                    handleChange={this.handleChange}
+                    handleSubmit={this.handleSubmit}
+                />
 
                 <div>
                     <h1>Constant list</h1>
