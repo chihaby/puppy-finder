@@ -17,17 +17,6 @@ export const Button = styled.button`
     margin: 10px 10px 20px 10px;
 `;
 
-export const RdmButton = styled.button`
-    height: 30px;
-    width: 100px;
-    background: palevioletred;
-    border-radius: 3px;
-    border: none;
-    color: white;
-    background: -o-repeating-linear-gradient();
-    margin: 10px 10px 20px 10px;
-`;
-
 class GetData extends Component {
     state = {
         searchInput: "",
