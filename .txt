@@ -22,13 +22,16 @@ viqmo0KJLTdXPV07rTvdjCvR5bTJJWo8
 Mapbox
 access token: pk.eyJ1IjoicmFkODAiLCJhIjoiY2s1MmxxYWJoMTFodTNscXN5Z3BzajE1NSJ9.t50hhde4qlzVJadFNDowJQ
 
-Todo: 
+Features: 
+
 refactor code on GetData.js
 use minimum api calles
 style COMPONENTS
 randomize button names
 if wrong value entered output wrong value
 auto suggest
+make sure app is working after a single npm install for the user
+UI and STYLING
 
 bugs:
 enter key and constant button cause buttons to render

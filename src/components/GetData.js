@@ -3,6 +3,7 @@ import { Form } from "./Form";
 import { ButtonList } from "./ButtonList";
 import { RandomButtons } from "./RandomButtons";
 import { ImageDiv } from "./ImageDiv";
+import  AutoSuggest  from './AutoSuggest';
 import axios from "axios";
 import styled from "styled-components";
 
@@ -23,14 +24,16 @@ class GetData extends Component {
         buttonValue: "",
         rdmButtonvalues: [],
         searchResult: [],
-        list: []
+        list: [],
+        autoList: []
     };
 
     componentDidMount = async () => {
         await axios.get(`https://dog.ceo/api/breeds/list/all`).then(res => {
             const list = res.data.message;
-            this.setState({ list });
-            this.randomizeButtonValues();
+            const autoList = Object.keys(list);
+            this.setState({ list, autoList });
+            this.randomizeButtonValues();            
         });
     };
 
@@ -62,13 +65,15 @@ class GetData extends Component {
                     const searchResult = res.data.message.slice(0, 9);
                     this.setState({ searchResult });
                 });
+        } else {
+            console.log('nothing clicked')
         }
     };
 
     randomizeButtonValues = () => {
         let rdmButtonvalues = [];
         for (var i = 0; i < 9; i++) {
-            var rdmNumber = Object.keys(this.state.list)[
+            const rdmNumber = Object.keys(this.state.list)[
                 Math.floor(Math.random() * Object.keys(this.state.list).length)
             ];
             rdmButtonvalues.push(rdmNumber);
@@ -81,6 +86,10 @@ class GetData extends Component {
             <div>
                 <Form
                     handleChange={this.handleChange}
+                    handleSubmit={this.handleSubmit}
+                />
+                <AutoSuggest 
+                    autoList={this.state.autoList}
                     handleSubmit={this.handleSubmit}
                 />
                 <ButtonList
