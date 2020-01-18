@@ -1,12 +1,8 @@
-import React from 'react';
-import { Button } from './GetData';
+import React from "react";
 
 class Search extends React.Component {
-  render(){
-    return (
-    <Button>hello</Button>
-
-    )
-  }
+    render() {
+        return <h1>Search page</h1>;
+    }
 }
 export default Search;

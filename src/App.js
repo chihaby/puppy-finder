@@ -1,15 +1,14 @@
 import React from "react";
 import "./App.css";
-import GetData from "./components/GetData";
+import Main from "./components/Main";
 import Search from "./components/Search";
 import Login from "./containers/Login";
 // import Maps from "./components/Maps";
-import AutoComplete from './components/AutoSuggest';
-import NavBar from './components/NavBar';
+import { AutoSuggest } from "./components/AutoSuggest";
+import NavBar from "./components/NavBar";
 import NoMatch from "./components/NoMatch";
 
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import AutoSuggest from "./components/AutoSuggest";
 
 function App() {
     return (
@@ -20,7 +19,7 @@ function App() {
                 </div>
                 <div className="App">
                     <Switch>
-                        <Route exact path="/" component={GetData} />
+                        <Route exact path="/" component={Main} />
                         <Route exact path="/search" component={Search} />
                         <Route path="/login" exact component={Login} />
                         <Route path="/auto" exact component={AutoSuggest} />

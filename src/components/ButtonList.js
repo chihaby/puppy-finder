@@ -1,9 +1,20 @@
 import React from "react";
-import { Button } from "./GetData";
+import styled from "styled-components";
+
+export const Button = styled.button`
+    height: 30px;
+    width: 100px;
+    background: palevioletred;
+    border-radius: 3px;
+    border: none;
+    color: white;
+    background: tomato;
+    margin: 10px 10px 20px 10px;
+`;
+
 export const ButtonList = props => (
     <div>
-        <h1>Constant list</h1>
-        {Object.keys(props.list)
+        {props.autoList
             .map(breed => <Button onClick={props.handleSubmit}>{breed}</Button>)
             .slice(1, 9)}
     </div>

@@ -1,26 +1,14 @@
 import React, { Component } from "react";
-import { Form } from "./Form";
 import { ButtonList } from "./ButtonList";
 import { RandomButtons } from "./RandomButtons";
 import { ImageDiv } from "./ImageDiv";
-import  AutoSuggest  from './AutoSuggest';
+import { AutoSuggest } from "./AutoSuggest";
 import axios from "axios";
-import styled from "styled-components";
 
-export const Button = styled.button`
-    height: 30px;
-    width: 100px;
-    background: palevioletred;
-    border-radius: 3px;
-    border: none;
-    color: white;
-    background: tomato;
-    margin: 10px 10px 20px 10px;
-`;
-
-class GetData extends Component {
+class Main extends Component {
     state = {
-        searchInput: "",
+        dropDownListValue: "",
+        dropDownListResult: "",
         buttonValue: "",
         rdmButtonvalues: [],
         searchResult: [],
@@ -28,36 +16,34 @@ class GetData extends Component {
         autoList: []
     };
 
-    componentDidMount = async () => {
-        await axios.get(`https://dog.ceo/api/breeds/list/all`).then(res => {
+    componentDidMount = () => {
+        axios.get(`https://dog.ceo/api/breeds/list/all`).then(res => {
             const list = res.data.message;
             const autoList = Object.keys(list);
-            this.setState({ list, autoList });
-            this.randomizeButtonValues();            
+            this.setState({ autoList });
+            this.randomizeButtonValues();
         });
     };
 
-    handleChange = event => {
+    handleDropDownListChange = event => {
         event.preventDefault();
         this.setState({
-            searchInput: event.target.value
+            dropDownList: event.target.innerHTML
         });
+    };
+
+    handleDropDownListSelect = () => {
+        axios
+            .get(`https://dog.ceo/api/breed/${this.state.dropDownList}/images`)
+            .then(res => {
+                const searchResult = res.data.message.slice(0, 9);
+                this.setState({ searchResult });
+            });
     };
 
     handleSubmit = event => {
         event.preventDefault();
         const buttonValue = event.target.innerHTML;
-        const { searchInput } = this.state;
-
-        if (searchInput) {
-            axios
-                .get(`https://dog.ceo/api/breed/${searchInput}/images`)
-                .then(res => {
-                    const searchResult = res.data.message.slice(0, 9);
-                    this.setState({ searchResult });
-                });
-        }
-
         if (buttonValue) {
             axios
                 .get(`https://dog.ceo/api/breed/${buttonValue}/images`)
@@ -65,16 +51,16 @@ class GetData extends Component {
                     const searchResult = res.data.message.slice(0, 9);
                     this.setState({ searchResult });
                 });
-        } else {
-            console.log('nothing clicked')
         }
     };
 
     randomizeButtonValues = () => {
         let rdmButtonvalues = [];
         for (var i = 0; i < 9; i++) {
-            const rdmNumber = Object.keys(this.state.list)[
-                Math.floor(Math.random() * Object.keys(this.state.list).length)
+            const rdmNumber = this.state.autoList[
+                Math.floor(
+                    Math.random() * Object.keys(this.state.autoList).length
+                )
             ];
             rdmButtonvalues.push(rdmNumber);
         }
@@ -84,16 +70,13 @@ class GetData extends Component {
     render() {
         return (
             <div>
-                <Form
-                    handleChange={this.handleChange}
-                    handleSubmit={this.handleSubmit}
-                />
-                <AutoSuggest 
+                <AutoSuggest
                     autoList={this.state.autoList}
-                    handleSubmit={this.handleSubmit}
+                    handleDropDownListChange={this.handleDropDownListChange}
+                    handleDropDownListSelect={this.handleDropDownListSelect}
                 />
                 <ButtonList
-                    list={this.state.list}
+                    autoList={this.state.autoList}
                     handleSubmit={this.handleSubmit}
                 />
                 <RandomButtons
@@ -107,4 +90,4 @@ class GetData extends Component {
     }
 }
 
-export default GetData;
+export default Main;
