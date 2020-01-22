@@ -22,21 +22,29 @@ class Main extends Component {
         axios
             .get(`https://dog.ceo/api/breeds/image/random`).then(res => {
                 this.setState({randomImage: res.data.message})
-                const response =  this.state.randomImage.split('/')[4];
-                const randomImageName = response.charAt(0).toUpperCase()+ response.slice(1);
-                this.setState({ randomImageName })
+                this.handleRandomImage();
             });
             return axios.get(`https://dog.ceo/api/breeds/list/all`)
             .then(res => {
-                const list = res.data.message;
-                const autoList = Object.keys(list);
-                this.setState({ autoList });
-                this.randomizeButtonValues();
+                this.setState({list: res.data.message})
+                this.handleList();
             })
             .catch(err => {
                 console.log("error fetching List");
             });
     };
+
+    handleRandomImage = () => {
+        const response =  this.state.randomImage.split('/')[4];
+        const randomImageName = response.charAt(0).toUpperCase()+ response.slice(1);
+        this.setState({ randomImageName })
+    }
+
+    handleList = () => {
+        const autoList = Object.keys(this.state.list);
+        this.setState({ autoList });
+        this.randomizeButtonValues();
+    }
 
     handleDropDownListChange = event => {
         event.preventDefault();
