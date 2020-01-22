@@ -16,6 +16,6 @@ export const ButtonList = props => (
     <div>
         {props.autoList
             .map(breed => <Button onClick={props.handleSubmit}>{breed}</Button>)
-            .slice(1, 9)}
+            .slice(1, 8)}
     </div>
 );

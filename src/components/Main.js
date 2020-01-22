@@ -7,6 +7,7 @@ import axios from "axios";
 
 class Main extends Component {
     state = {
+        randomImage: '',
         dropDownListValue: "",
         dropDownListResult: "",
         buttonValue: "",
@@ -18,7 +19,11 @@ class Main extends Component {
 
     componentDidMount = () => {
         axios
-            .get(`https://dog.ceo/api/breeds/list/all`)
+            .get(`https://dog.ceo/api/breeds/image/random`).then(res => {
+                this.setState({randomImage: res.data.message})
+                console.log(this.state.randomImage)
+            });
+            return axios.get(`https://dog.ceo/api/breeds/list/all`)
             .then(res => {
                 const list = res.data.message;
                 const autoList = Object.keys(list);
@@ -67,7 +72,7 @@ class Main extends Component {
 
     randomizeButtonValues = () => {
         let rdmButtonvalues = [];
-        for (var i = 0; i < 9; i++) {
+        for (var i = 1; i < 9; i++) {
             const rdmNumber = this.state.autoList[
                 Math.floor(
                     Math.random() * Object.keys(this.state.autoList).length
@@ -79,8 +84,18 @@ class Main extends Component {
     };
 
     render() {
+        const { randomImage } = this.state;
         return (
             <div>
+                <img    
+                    src={randomImage}
+                    alt={""}
+                    style={{
+                        height: "200px",
+                        width: "200px",
+                        borderRadius: "20%"
+                    }} /> 
+
                 <AutoSuggest
                     autoList={this.state.autoList}
                     handleDropDownListChange={this.handleDropDownListChange}
