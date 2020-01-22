@@ -36,6 +36,7 @@ auto suggest
 make sure app is working after a single npm install for the user
 UI and STYLING
 ComponentDidMount should get a random image as a main
+Rename repo puppy finder
 
 bugs:
 enter key and constant button cause buttons to render
