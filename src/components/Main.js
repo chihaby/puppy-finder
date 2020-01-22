@@ -8,6 +8,7 @@ import axios from "axios";
 class Main extends Component {
     state = {
         randomImage: '',
+        randomImageName: '',
         dropDownListValue: "",
         dropDownListResult: "",
         buttonValue: "",
@@ -21,7 +22,9 @@ class Main extends Component {
         axios
             .get(`https://dog.ceo/api/breeds/image/random`).then(res => {
                 this.setState({randomImage: res.data.message})
-                console.log(this.state.randomImage)
+                const response =  this.state.randomImage.split('/')[4];
+                const randomImageName = response.charAt(0).toUpperCase()+ response.slice(1);
+                this.setState({ randomImageName })
             });
             return axios.get(`https://dog.ceo/api/breeds/list/all`)
             .then(res => {
@@ -84,9 +87,10 @@ class Main extends Component {
     };
 
     render() {
-        const { randomImage } = this.state;
+        const { randomImage, randomImageName } = this.state;
         return (
             <div>
+                <h3>{randomImageName}</h3>
                 <img    
                     src={randomImage}
                     alt={""}

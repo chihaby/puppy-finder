@@ -14,7 +14,7 @@ export const AutoSuggest = props => (
                     {...params}
                     onSelect={props.handleDropDownListSelect}
                     onSubmit={props.handleDropDownListSelect}
-                    label="Breeds List"
+                    label="List of breeds"
                     variant="outlined"
                     fullWidth
                 />
