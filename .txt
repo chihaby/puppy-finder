@@ -12,6 +12,9 @@ STYLED COMPONENTS INSTEAD OF INLINE STYLING
 .search bar
 .list of images rendered
 
+Dog api key
+d63f96c1-48f7-46e7-929b-70a94181a805
+
 MQ 
 custumor key:  	NZ0x7JGlyUhl10wR3RCGLcAVpAxVbtGc
 custumor secret:  	yDKw5xuYKwyJKNx8

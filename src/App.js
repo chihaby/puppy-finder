@@ -3,7 +3,7 @@ import "./App.css";
 import Main from "./components/Main";
 import Search from "./components/Search";
 import Login from "./containers/Login";
-// import Maps from "./components/Maps";
+import Maps from "./components/Maps";
 import { AutoSuggest } from "./components/AutoSuggest";
 import NavBar from "./components/NavBar";
 import NoMatch from "./components/NoMatch";
@@ -21,6 +21,7 @@ function App() {
                     <Switch>
                         <Route exact path="/" component={Main} />
                         <Route exact path="/search" component={Search} />
+                        <Route exact path="/map" component={Maps} />
                         <Route path="/login" exact component={Login} />
                         <Route path="/auto" exact component={AutoSuggest} />
                         <Route component={NoMatch} />

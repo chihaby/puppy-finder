@@ -17,12 +17,17 @@ class Main extends Component {
     };
 
     componentDidMount = () => {
-        axios.get(`https://dog.ceo/api/breeds/list/all`).then(res => {
-            const list = res.data.message;
-            const autoList = Object.keys(list);
-            this.setState({ autoList });
-            this.randomizeButtonValues();
-        });
+        axios
+            .get(`https://dog.ceo/api/breeds/list/all`)
+            .then(res => {
+                const list = res.data.message;
+                const autoList = Object.keys(list);
+                this.setState({ autoList });
+                this.randomizeButtonValues();
+            })
+            .catch(err => {
+                console.log("error fetching List");
+            });
     };
 
     handleDropDownListChange = event => {
@@ -38,6 +43,9 @@ class Main extends Component {
             .then(res => {
                 const searchResult = res.data.message.slice(0, 9);
                 this.setState({ searchResult });
+            })
+            .catch(err => {
+                console.log("error fetching image");
             });
     };
 
@@ -50,6 +58,9 @@ class Main extends Component {
                 .then(res => {
                     const searchResult = res.data.message.slice(0, 9);
                     this.setState({ searchResult });
+                })
+                .catch(err => {
+                    console.log("error fetching image");
                 });
         }
     };
