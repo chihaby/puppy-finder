@@ -13,7 +13,7 @@ export const Button = styled.button`
 `;
 
 export const ButtonList = props => (
-    <div>
+    <div >
         {props.autoList
             .map(breed => <Button onClick={props.handleSubmit}>{breed}</Button>)
             .slice(1, 8)}

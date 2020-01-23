@@ -57,7 +57,7 @@ class Main extends Component {
         axios
             .get(`https://dog.ceo/api/breed/${this.state.dropDownList}/images`)
             .then(res => {
-                const searchResult = res.data.message.slice(0, 9);
+                const searchResult = res.data.message.slice(0, 6);
                 this.setState({ searchResult });
             })
             .catch(err => {
@@ -72,7 +72,7 @@ class Main extends Component {
             axios
                 .get(`https://dog.ceo/api/breed/${buttonValue}/images`)
                 .then(res => {
-                    const searchResult = res.data.message.slice(0, 9);
+                    const searchResult = res.data.message.slice(0, 6);
                     this.setState({ searchResult });
                 })
                 .catch(err => {
@@ -105,7 +105,8 @@ class Main extends Component {
                     style={{
                         height: "200px",
                         width: "200px",
-                        borderRadius: "20%"
+                        borderRadius: "20%",
+                        marginBottom: '20px'
                     }} /> 
 
                 <AutoSuggest

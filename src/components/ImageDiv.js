@@ -11,6 +11,7 @@ export const ImageDiv = props => (
                     style={{
                         height: "100px",
                         width: "100px",
+                        margin: '10px 20px',
                         borderRadius: "20%"
                     }}
                 />
