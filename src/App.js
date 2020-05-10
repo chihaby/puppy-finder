@@ -26,7 +26,7 @@ function App() {
                         <Route exact path="/locate" component={LocateControl} />
                         <Route path="/login" exact component={Login} />
                         <Route path="/auto" exact component={AutoSuggest} />
-                        <Route component={NoMatch} />
+                        <Route component={Main} />
                     </Switch>
                 </div>
             </div>
