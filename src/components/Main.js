@@ -1,16 +1,17 @@
 import React, { Component } from "react";
-import { ButtonList } from "./ButtonList";
-import { ImageDiv } from "./ImageDiv";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Container from "@material-ui/core/Container";
+import { BreedButton } from "./BreedButton";
+import ImageList from "./ImageList";
 import { AutoSuggest } from "./AutoSuggest";
 import axios from "axios";
 
 class Main extends Component {
   state = {
-    dropDownListValue: "",
-    dropDownListResult: "",
-    buttonValue: "",
-    searchResult: [],
     list: [],
+    selectBreed: "",
+    buttonValue: "beagle",
+    searchResult: [],
     autoList: [],
   };
 
@@ -18,30 +19,16 @@ class Main extends Component {
     axios
       .get(`https://dog.ceo/api/breeds/list/all`)
       .then((res) => {
-        this.setState({ list: res.data.message });
-        this.handleList();
+        const list = res.data.message;
+        const autoList = Object.keys(list);
+        this.setState({ list, autoList });
+        console.log(autoList);
       })
       .catch((err) => {
         console.log("error fetching List");
       });
-  };
-
-  handleList = () => {
-    const autoList = Object.keys(this.state.list);
-    this.setState({ autoList });
-    this.randomizeButtonValues();
-  };
-
-  handleDropDownListChange = (event) => {
-    event.preventDefault();
-    this.setState({
-      dropDownList: event.target.innerHTML,
-    });
-  };
-
-  handleDropDownListSelect = () => {
     axios
-      .get(`https://dog.ceo/api/breed/${this.state.dropDownList}/images`)
+      .get(`https://dog.ceo/api/breed/${this.state.buttonValue}/images`)
       .then((res) => {
         const searchResult = res.data.message.slice(0, 6);
         this.setState({ searchResult });
@@ -51,38 +38,54 @@ class Main extends Component {
       });
   };
 
-  handleSubmit = (event) => {
-    event.preventDefault();
-    const buttonValue = event.target.innerHTML;
-    if (buttonValue) {
-      axios
-        .get(`https://dog.ceo/api/breed/${buttonValue}/images`)
-        .then((res) => {
-          const searchResult = res.data.message.slice(0, 2);
-          this.setState({ searchResult });
-        })
-        .catch((err) => {
-          console.log("error fetching image");
-        });
-    }
+  handleButtonClick = async (event) => {
+    this.setState({
+      buttonValue: event.target.innerHTML,
+    });
+    await axios
+      .get(`https://dog.ceo/api/breed/${this.state.buttonValue}/images`)
+      .then((res) => {
+        const searchResult = res.data.message.slice(0, 6);
+        this.setState({ searchResult });
+      })
+      .catch((err) => {
+        console.log("error fetching image");
+      });
   };
 
   render() {
     return (
-      <div>
-        <AutoSuggest
-          autoList={this.state.autoList}
-          handleDropDownListChange={this.handleDropDownListChange}
-          handleDropDownListSelect={this.handleDropDownListSelect}
-        />
-        <ButtonList
-          autoList={this.state.autoList}
-          handleSubmit={this.handleSubmit}
-        />
-        <ImageDiv searchResult={this.state.searchResult} />
-      </div>
+      <React.Fragment>
+        <CssBaseline />
+        <Container maxWidth="sm">
+          <h1>Dog Breeds</h1>
+          <BreedButton
+            autoList={this.state.autoList}
+            handleButtonClick={this.handleButtonClick}
+          />
+          <AutoSuggest
+            autoList={this.state.autoList}
+            // handleDropDownListChange={this.handleDropDownListChange}
+            handleSelectList={this.handleSelectList}
+          />
+          <ImageList searchResult={this.state.searchResult} />
+        </Container>
+      </React.Fragment>
     );
   }
 }
 
 export default Main;
+
+// handleSelectList = (event) => {
+//   event.preventDefault();
+//   axios
+//     .get(`https://dog.ceo/api/breed/${event.target.innerHTML}/images`)
+//     .then((res) => {
+//       const searchResult = res.data.message.slice(0, 6);
+//       this.setState({ searchResult });
+//     })
+//     .catch((err) => {
+//       console.log("error fetching image");
+//     });
+// };
