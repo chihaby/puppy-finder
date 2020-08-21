@@ -5,7 +5,7 @@ import puppyLogo from "../assets/alldogs.png";
 const Header = () => {
   return (
     <Box className="header">
-      <img src={puppyLogo} alt="puppy cartoon" width={250} height={250} />
+      <img src={puppyLogo} alt="puppy cartoon" width={200} height={200} />
     </Box>
   );
 };

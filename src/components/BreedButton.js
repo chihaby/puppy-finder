@@ -19,25 +19,41 @@ export const Button = styled.button`
 
 export const BreedButton = (props) => (
   <div>
-    <Button>Retriever</Button>
-    <Button>Bulldog</Button>
-    <Button>Labrador</Button>
-    <Button>Shepherd</Button>
-    <Button>Pitbull</Button>
-    <Button>Poodle</Button>
-    <Button>Rottweiler</Button>
-    <Button>Boxer</Button>
-    <Button>Pug</Button>
-    <Button>Chihuahua</Button>
-    <Button>Dachshunds</Button>
-    <Button>Husky</Button>
+    <Button value="retriever" onClick={props.handleButtonClick}>
+      Retriever
+    </Button>
+    <Button value="bulldog" onClick={props.handleButtonClick}>
+      Bulldog
+    </Button>
+    <Button value="labrador" onClick={props.handleButtonClick}>
+      Labrador
+    </Button>
+    <Button value="germanshepherd" onClick={props.handleButtonClick}>
+      Shepherd
+    </Button>
+    <Button value="pitbull" onClick={props.handleButtonClick}>
+      Pitbull
+    </Button>
+    <Button value="poodle" onClick={props.handleButtonClick}>
+      Poodle
+    </Button>
+    <Button value="rottweiler" onClick={props.handleButtonClick}>
+      Rottweiler
+    </Button>
+    <Button value="boxer" onClick={props.handleButtonClick}>
+      Boxer
+    </Button>
+    <Button value="pug" onClick={props.handleButtonClick}>
+      Pug
+    </Button>
+    <Button value="" onClick={props.handleButtonClick}>
+      Chihuahua
+    </Button>
+    <Button value="corgi" onClick={props.handleButtonClick}>
+      Corgi
+    </Button>
+    <Button value="husky" onClick={props.handleButtonClick}>
+      Husky
+    </Button>
   </div>
 );
-
-// {props.autoList
-//     .map((breed) => (
-//       <Button key={breed} onClick={props.handleButtonClick}>
-//         {breed}
-//       </Button>
-//     ))
-//     .slice(10, 22)}

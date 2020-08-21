@@ -8,9 +8,9 @@ import axios from "axios";
 
 class Main extends Component {
   state = {
-    list: [],
-    selectBreed: "",
-    buttonValue: "beagle",
+    // list: [],
+    // selectBreed: "",
+    buttonValue: "",
     searchResult: [],
     autoList: [],
   };
@@ -21,16 +21,15 @@ class Main extends Component {
       .then((res) => {
         const list = res.data.message;
         const autoList = Object.keys(list);
-        this.setState({ list, autoList });
-        console.log(autoList);
+        this.setState({ autoList });
       })
       .catch((err) => {
         console.log("error fetching List");
       });
     axios
-      .get(`https://dog.ceo/api/breed/${this.state.buttonValue}/images`)
+      .get(`https://dog.ceo/api/breed/beagle/images`)
       .then((res) => {
-        const searchResult = res.data.message.slice(0, 6);
+        const searchResult = res.data.message.slice(0, 12);
         this.setState({ searchResult });
       })
       .catch((err) => {
@@ -40,10 +39,25 @@ class Main extends Component {
 
   handleButtonClick = async (event) => {
     this.setState({
-      buttonValue: event.target.innerHTML,
+      buttonValue: event.target.value,
     });
+    const buttonBreed = this.state.buttonValue;
+    console.log(buttonBreed);
     await axios
-      .get(`https://dog.ceo/api/breed/${this.state.buttonValue}/images`)
+      .get(`https://dog.ceo/api/breed/${buttonBreed}/images`)
+      .then((res) => {
+        const searchResult = res.data.message.slice(0, 12);
+        this.setState({ searchResult });
+      })
+      .catch((err) => {
+        console.log("error fetching image");
+      });
+  };
+
+  handleSelectList = (event) => {
+    event.preventDefault();
+    axios
+      .get(`https://dog.ceo/api/breed/${event.target.innerHTML}/images`)
       .then((res) => {
         const searchResult = res.data.message.slice(0, 6);
         this.setState({ searchResult });
@@ -58,16 +72,14 @@ class Main extends Component {
       <React.Fragment>
         <CssBaseline />
         <Container maxWidth="sm">
-          <h1>Dog Breeds</h1>
-          <BreedButton
-            autoList={this.state.autoList}
-            handleButtonClick={this.handleButtonClick}
-          />
+          <BreedButton handleButtonClick={this.handleButtonClick} />
+          <br />
           <AutoSuggest
             autoList={this.state.autoList}
             // handleDropDownListChange={this.handleDropDownListChange}
             handleSelectList={this.handleSelectList}
-          />
+          />{" "}
+          <br />
           <ImageList searchResult={this.state.searchResult} />
         </Container>
       </React.Fragment>
