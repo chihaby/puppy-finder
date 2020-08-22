@@ -31,8 +31,8 @@ export const BreedButton = (props) => (
     <Button value="germanshepherd" onClick={props.handleButtonClick}>
       Shepherd
     </Button>
-    <Button value="pitbull" onClick={props.handleButtonClick}>
-      Pitbull
+    <Button value="mastiff" onClick={props.handleButtonClick}>
+      Mastiff
     </Button>
     <Button value="poodle" onClick={props.handleButtonClick}>
       Poodle

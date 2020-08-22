@@ -38,10 +38,8 @@ class Main extends Component {
   };
 
   handleButtonClick = async (event) => {
-    this.setState({
-      buttonValue: event.target.value,
-    });
-    const buttonBreed = this.state.buttonValue;
+    event.preventDefault();
+    const buttonBreed = event.target.value;
     console.log(buttonBreed);
     await axios
       .get(`https://dog.ceo/api/breed/${buttonBreed}/images`)
@@ -54,12 +52,13 @@ class Main extends Component {
       });
   };
 
-  handleSelectList = (event) => {
+  handleSelectList = async (event) => {
     event.preventDefault();
-    axios
-      .get(`https://dog.ceo/api/breed/${event.target.innerHTML}/images`)
+    const listBreed = event.target.value;
+    await axios
+      .get(`https://dog.ceo/api/breed/${listBreed}/images`)
       .then((res) => {
-        const searchResult = res.data.message.slice(0, 6);
+        const searchResult = res.data.message.slice(0, 12);
         this.setState({ searchResult });
       })
       .catch((err) => {
