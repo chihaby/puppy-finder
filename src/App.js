@@ -4,6 +4,7 @@ import Main from "./components/Main";
 import NoMatch from "./components/NoMatch";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route exact path="/" component={Main} />
           <Route component={NoMatch} />
         </Switch>
+        <Footer />
       </BrowserRouter>
     </div>
   );
