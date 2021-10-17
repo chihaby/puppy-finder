@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Helmet } from "react-helmet";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
 import { BreedButton } from "./BreedButton";
@@ -8,8 +9,6 @@ import axios from "axios";
 
 class Main extends Component {
   state = {
-    // list: [],
-    // selectBreed: "",
     buttonValue: "",
     searchResult: [],
     autoList: [],
@@ -27,7 +26,7 @@ class Main extends Component {
         console.log("error fetching List");
       });
     axios
-      .get(`https://dog.ceo/api/breed/beagle/images`)
+      .get(`https://dog.ceo/api/breed/lhasa/images`)
       .then((res) => {
         const searchResult = res.data.message.slice(0, 12);
         this.setState({ searchResult });
@@ -40,7 +39,6 @@ class Main extends Component {
   handleButtonClick = async (event) => {
     event.preventDefault();
     const buttonBreed = event.target.value;
-    console.log(buttonBreed);
     await axios
       .get(`https://dog.ceo/api/breed/${buttonBreed}/images`)
       .then((res) => {
@@ -80,23 +78,20 @@ class Main extends Component {
           />{" "}
           <br />
           <ImageList searchResult={this.state.searchResult} />
+          <br />
         </Container>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Photos of all dog breeds</title>
+          <meta
+            name="description"
+            content={`Photos of all dog breeds ${this.state.autoList}`}
+          />
+          <link rel="canonical" href="https://alldogs.net/" />
+        </Helmet>
       </React.Fragment>
     );
   }
 }
 
 export default Main;
-
-// handleSelectList = (event) => {
-//   event.preventDefault();
-//   axios
-//     .get(`https://dog.ceo/api/breed/${event.target.innerHTML}/images`)
-//     .then((res) => {
-//       const searchResult = res.data.message.slice(0, 6);
-//       this.setState({ searchResult });
-//     })
-//     .catch((err) => {
-//       console.log("error fetching image");
-//     });
-// };

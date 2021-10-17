@@ -24,7 +24,7 @@ export default function ImageList(props) {
     <div className={classes.root}>
       <GridList cellHeight={160} className={classes.gridList} cols={3}>
         {props.searchResult.map((title) => (
-          <GridListTile key={title.img} cols={title.cols || 1}>
+          <GridListTile key={title} cols={title.cols || 1}>
             <img className="image-list" src={title} alt={"puppy"} />;
           </GridListTile>
         ))}

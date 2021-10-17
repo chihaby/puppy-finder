@@ -19,8 +19,8 @@ export const Button = styled.button`
 
 export const BreedButton = (props) => (
   <div>
-    <Button value="retriever" onClick={props.handleButtonClick}>
-      Retriever
+    <Button value="mastiff" onClick={props.handleButtonClick}>
+      Mastiff
     </Button>
     <Button value="bulldog" onClick={props.handleButtonClick}>
       Bulldog
@@ -31,8 +31,8 @@ export const BreedButton = (props) => (
     <Button value="germanshepherd" onClick={props.handleButtonClick}>
       Shepherd
     </Button>
-    <Button value="mastiff" onClick={props.handleButtonClick}>
-      Mastiff
+    <Button value="retriever" onClick={props.handleButtonClick}>
+      Retriever
     </Button>
     <Button value="poodle" onClick={props.handleButtonClick}>
       Poodle
@@ -46,8 +46,8 @@ export const BreedButton = (props) => (
     <Button value="pug" onClick={props.handleButtonClick}>
       Pug
     </Button>
-    <Button value="" onClick={props.handleButtonClick}>
-      Chihuahua
+    <Button value="dane" onClick={props.handleButtonClick}>
+      Dane
     </Button>
     <Button value="corgi" onClick={props.handleButtonClick}>
       Corgi
